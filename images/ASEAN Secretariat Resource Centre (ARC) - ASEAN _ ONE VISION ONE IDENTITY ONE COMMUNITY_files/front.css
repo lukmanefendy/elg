@@ -1,0 +1,96 @@
+.clearfix{
+  clear:both;
+}
+ul.small_block {
+	float: left;
+	height: auto;
+	width:100%;
+}
+li.single_video{
+	float:left;
+	background: #f5f5f5;
+	margin: 0 1% 2% 1%;
+	position:relative;
+	list-style: outside none none;
+	width: 30% !important;
+}
+.single_video img {
+    border: 1px solid black;
+    margin: -8% 0;
+    width: 100% !important;
+}
+.image_cont{
+	text-align: center;
+	font-family:Tahoma;
+	cursor:pointer;
+}
+.main_video_block{
+	height:auto;
+	margin: 0 0 20px;
+}  
+.navi_block{
+	height: auto;
+	overflow: hidden;
+}
+.navi_buttons{
+	text-align:right;
+	margin:20px 6px 00;
+}
+.vide_container{
+	width:100%;	
+}
+.overlap{
+
+	position:absolute;
+	top:0px;
+	left:0px;
+	width: 100%;
+	height: 100%;
+	/*background: rgba(0,0,0, 0.5) url(../images/play.png) no-repeat center center;*/
+	background-image:url(../../../themes/Game/images/style1/logo.png)
+    display:none; 
+	cursor:pointer;
+	z-index:100;
+}
+
+
+.nav_single_button{
+	border:1px solid #0091bc;
+	padding:5px 10px;
+	margin:5px;
+	display: inline;
+	cursor:pointer;
+}
+.selected_nav,
+.nav_single_button:hover{
+	border:1px solid #999;
+	background:#eaeaea;
+	cursor:pointer;
+}
+.single_video p{
+	margin:0px !important;
+	padding:0px !important;
+}
+.image_cont{
+	position: relative;
+	background: black;
+    overflow: hidden;
+}
+
+.text-wrap {
+	padding:8px 12px;
+}
+.video_header{
+	height:50px;
+}
+
+.hor_container{
+	height: auto;
+	width: 100%;
+}
+.single_video p
+{
+    font-size: 13px !important;
+    line-height: 15px !important;
+    margin: 0 0 !important;
+}

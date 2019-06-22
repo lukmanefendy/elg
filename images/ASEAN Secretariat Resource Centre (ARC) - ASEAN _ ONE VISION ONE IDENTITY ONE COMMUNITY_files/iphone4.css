@@ -1,0 +1,29 @@
+/* iPhone 4 (portrait & landscape)----------- */
+@media only screen and (max-device-width: 320px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3)
+{
+  .zfk-mobile-only {
+        display:block !important;
+    }
+  .social-slide {
+    width: 44px !important;
+	height: 44px !important;
+  }
+}
+
+/* iPhone 4 (portrait)----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) and (orientation:portrait)
+{
+	.socialize {
+		margin-bottom: 0px !important;
+		padding: 0 45px;
+	}
+	.zfk-button-text {
+		font-size: 12px;
+	}
+}
+
+/* iPhone 4 (landscape)----------- */
+@media only screen and (min-device-width: 320px)  and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3) and (orientation:landscape)
+{
+	#main{margin-top: -35px !important;}
+}
