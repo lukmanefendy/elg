@@ -153,6 +153,35 @@ foreach ($fields as $field) {
 	echo elgg_view_field($field);
 }
 
+$token = captcha_generate_token();
+
+echo '<div class="captcha">';
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'captcha_token',
+	'value' => $token,
+]);
+
+echo '<div class="captcha-right">';
+echo elgg_view('output/img', [
+	'src' => "captcha/$token",
+	'alt' => "captcha_image",
+	'class' => 'captcha-input-image',
+]);
+echo '</div>';
+
+echo '<div class="captcha-left">';
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('captcha:entercaptcha'),
+	'name' => 'captcha_input',
+	'class' => 'captcha-input-text',
+	'required' => true,
+]);
+$captcha = captcha_generate_captcha($token);
+print("<input value=\"$captcha\" type=\"hidden\" name=\"captcha_hidden\" class=\"elgg-input-text captcha-input-text\" id=\"elgg-field-b460x4\">");
+echo '</div>';
+echo '</div>';
 // view to extend to add more fields to the registration form
 //echo elgg_view('register/extend', $vars);
 

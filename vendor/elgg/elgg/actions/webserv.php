@@ -19,6 +19,13 @@ $hp = get_input('hp');
 $instansi = get_input('instansi');
 $friend_guid = (int) get_input('friend_guid', 0);
 $invitecode = get_input('invitecode');
+$captchaInput = get_input('captcha_input');
+$captcha = get_input('captcha_hidden');
+
+if ($captchaInput != $captcha) {
+	register_error(elgg_echo("Captcha yang anda masukan salah"));
+	forward(REFERRER);
+} else {
 
 if (elgg_get_config('allow_registration')) {
 	try {
@@ -94,6 +101,7 @@ if (elgg_get_config('allow_registration')) {
 	}
 } else {
 	register_error(elgg_echo('registerdisabled'));
+}
 }
 
 forward(REFERER);
