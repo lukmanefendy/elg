@@ -394,6 +394,7 @@ return array(
     'profile:tglLulusS3' => 'Tanggal Lulus',
 	'profile:namaSekolahS3' => 'Nama Sekolah',
 	'profile:kursus' => 'Kursus',
+	'profile:jabatan' => 'Jabatan',
 	'profile:declaration' => 'Declaration',
 	'profile:check' => 'Check',
 	'profile:hrm' => "Human resources management",
