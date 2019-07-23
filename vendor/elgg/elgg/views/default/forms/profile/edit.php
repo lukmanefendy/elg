@@ -112,21 +112,95 @@ if ($err) {
 			"cache-control: no-cache"
 		),
 	  ));
+
+	$curljabatan = curl_init();
+	curl_setopt_array($curljabatan, array(
+	CURLOPT_URL => "https://wsrv.bkn.go.id/api/pns/rw-jabatan/$nip",
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => "",
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 30,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => "GET",
+	CURLOPT_POSTFIELDS => "",
+	CURLOPT_HTTPHEADER => array(
+	"Authorization: Bearer ".$json_obj0->access_token,
+		// "Authorization: Bearer 7aaece55-2800-4a78-9cfd-5a3a5f50a153",
+		"Content-Type: application/x-www-form-urlencoded",
+		"Origin: http://localhost:20000",
+		"Postman-Token: 2d9c3c24-39cf-4431-8a98-c22b7694ae50",
+		"cache-control: no-cache"
+	),
+	));
+
+	$curldiklat = curl_init();
+	curl_setopt_array($curldiklat, array(
+	CURLOPT_URL => "https://wsrv.bkn.go.id/api/pns/rw-diklat/$nip",
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => "",
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 30,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => "GET",
+	CURLOPT_POSTFIELDS => "",
+	CURLOPT_HTTPHEADER => array(
+	"Authorization: Bearer ".$json_obj0->access_token,
+		// "Authorization: Bearer 7aaece55-2800-4a78-9cfd-5a3a5f50a153",
+		"Content-Type: application/x-www-form-urlencoded",
+		"Origin: http://localhost:20000",
+		"Postman-Token: 2d9c3c24-39cf-4431-8a98-c22b7694ae50",
+		"cache-control: no-cache"
+	),
+	));
+
+	$curlhukdis = curl_init();
+	curl_setopt_array($curlhukdis, array(
+	CURLOPT_URL => "https://wsrv.bkn.go.id/api/pns/rw-hukdis/$nip",
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => "",
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 30,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => "GET",
+	CURLOPT_POSTFIELDS => "",
+	CURLOPT_HTTPHEADER => array(
+	"Authorization: Bearer ".$json_obj0->access_token,
+		// "Authorization: Bearer 7aaece55-2800-4a78-9cfd-5a3a5f50a153",
+		"Content-Type: application/x-www-form-urlencoded",
+		"Origin: http://localhost:20000",
+		"Postman-Token: 2d9c3c24-39cf-4431-8a98-c22b7694ae50",
+		"cache-control: no-cache"
+	),
+	));
 	
 	$datut = curl_exec($curl2);
 	$datpendidikan = curl_exec($curlpendidikan);
 	$datkursus = curl_exec($curlkursus);
+	$datjabatan = curl_exec($curljabatan);
+	$datdiklat = curl_exec($curldiklat);
+	$dathukdis = curl_exec($curlhukdis);
+
 	// echo $datut; 
 	// echo $datpendidikan;
 	// echo $datkursus;
 	$isikursus = '';
+	$isijabatan = '';
+	$isidiklat = '';
 			
 	$err = curl_error($curl2);
 	$errpendidikan = curl_error($curlpendidikan);
 	$errkursus = curl_error($curlkursus);
+	$errjabatan = curl_error($curljabatan);
+	$errdiklat = curl_error($curldiklat);
+	$errhukdis = curl_error($curlhukdis);
+
 	curl_close($curl2);
 	curl_close($curlpendidikan);
 	curl_close($curlkursus);
+	curl_close($curljabatan);
+	curl_close($curldiklat);
+	curl_close($curlhukdis);
+
 	if ($err) {
 		echo "cURL Error #:" . $err;
 	} else {
@@ -150,6 +224,27 @@ if ($err) {
 		for($i = 0; $i < count($json_kursus['data']); $i++){
 			$isikursus .= 'Nama Kursus: ' . $json_kursus['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_kursus['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_kursus['data'][$i]['institusiPenyelenggara'] . '<br><br>';
 		}
+	}
+	if ($errjabatan) {
+		echo "cURL Error #:" . $errjabatan;
+	} else {
+		$datjabatanres = stripslashes($datjabatan);
+		$json_jabatan = json_decode($datjabatan,true);
+		// $json_jabatan2 = $json_jabatan['data'][0];
+		for($i = 0; $i < count($json_jabatan['data']); $i++){
+			$isijabatan .= 'Jenis Jabatan: ' . $json_jabatan['data'][$i]['jenisJabatan'] . ' Instansi Kerja: ' . $json_jabatan['data'][$i]['instansiKerjaNama'] . ' Satuan Kerja: ' . $json_jabatan['data'][$i]['satuanKerjaNama'] .  ' Unor: ' . $json_jabatan['data'][$i]['unorNama'] . '<br><br>';
+		}
+	}
+
+	if ($errdiklat) {
+		echo "cURL Error #:" . $errdiklat;
+	} else {
+		$datdiklatres = stripslashes($datdiklat);
+		$json_diklat = json_decode($datdiklat,true);
+		// $json_jabatan2 = $json_jabatan['data'][0];
+		// for($i = 0; $i < count($json_jabatan['data']); $i++){
+		// 	$isijabatan .= 'Nama Kursus: ' . $json_kursus['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_kursus['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_kursus['data'][$i]['institusiPenyelenggara'] . '<br><br>';
+		// }
 	}
 }
 $sticky_values = elgg_get_sticky_values('profile:edit');
@@ -743,6 +838,13 @@ if (is_array($profile_fields) && count($profile_fields) > 0) {
 						$input = elgg_view("input/$valtype", [
 							'name' => $shortname,
 							'value' => $isikursus,
+							'id' => $id,
+						]);
+				break;
+				case "jabatan":
+						$input = elgg_view("input/$valtype", [
+							'name' => $shortname,
+							'value' => $isijabatan,
 							'id' => $id,
 						]);
 				break;

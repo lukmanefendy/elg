@@ -773,6 +773,7 @@ function elgg_profile_fields_setup() {
 		'tglLulusS3' => 'text',
 		'namaSekolahS3' => 'text',
 		'kursus' => 'longtext',
+		'jabatan' => 'longtext',
 		'catexpert' => 'select',
 		'areaexpert' => 'select',
 		'hrm' => 'checkboxes',
