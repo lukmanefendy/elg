@@ -785,7 +785,7 @@ function groups_join_group($group, $user) {
 function group_access_options($group) {
 	$access_array = array(
 		ACCESS_PRIVATE => 'private',
-		ACCESS_LOGGED_IN => 'logged in users',
+//		ACCESS_LOGGED_IN => 'logged in users',
 		ACCESS_PUBLIC => 'public',
 		$group->group_acl => elgg_echo('groups:acl', array($group->name)),
 	);

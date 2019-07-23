@@ -20,6 +20,12 @@ $invitecode = get_input('invitecode');
 //forward("http://localhost/elgg-2.3.9/webserv");
 //echo elgg_view_resource("account/webserv");
 
+$captchaInput = get_input('captcha_input');
+$captcha = get_input('captcha_hidden');
+if ($captchaInput != $captcha) {
+	register_error(elgg_echo("Captcha yang anda masukan salah"));
+	forward(REFERRER);
+} else {
 //$noinput = $_POST["noinput"];
 $curl = curl_init();
 
@@ -171,3 +177,4 @@ else forward("webserv/?nip=".$nip."&nama=".$json_obj3['nama'].
 	"&gelarDepan=".$json_obj3['gelarDepan']."&gelarBelakang=".$json_obj3['gelarBelakang']);
 //forward("http://localhost/elgg-2.3.9/webserv/?nip=".$nip."&nama=".$nama);
 //forward(REFERER);
+}

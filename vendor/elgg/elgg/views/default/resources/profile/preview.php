@@ -1,19 +1,36 @@
-<?php
-
-/*
-  An Example PDF Report Using FPDF
-  by Matt Doyle
-
-  From "Create Nice-Looking PDFs with PHP and FPDF"
-  http://www.elated.com/articles/create-nice-looking-pdfs-php-fpdf/
-*/
-
-require('../fpdf181/fpdf.php');
-
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Resume</title>
+  <?php
 // API BKN
+$stylesheets = elgg_get_loaded_css();
 
-$nip = '196302081991031001';
+  foreach ($stylesheets as $url) {
+  echo elgg_format_element('link', array('rel' => 'stylesheet', 'href' => $url));
+}
+?>
+</head>
+<body>
+
+<?php
+//ditambahkan:nip dan user agar bisa GET utk PDF Review
+$nip = get_input('preview');
+$guid = (int)get_input('page');
+$user = get_user($guid);
+$name = htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8', false);
+$icon = elgg_view('output/img', array(
+	'src' => $user->getIconURL('large'),
+	//'vrf' => $vrf, 
+	'alt' => $name,
+	'title' => $name,
+//	'class' => "photo u-photo",
+  'class' => "profile-image",
+));
+
 $json_obj2 = '';
+$json_pendidikan = '';
+$json_kursus = '';
 
 $curl = curl_init();
   curl_setopt_array($curl, array(
@@ -48,7 +65,7 @@ $curl = curl_init();
   
   if ($err) {
       
-      //echo "cURL Error #:" . $err;
+      echo "cURL Error #:" . $err;
   
   } else {
     //   echo $response;
@@ -134,7 +151,7 @@ $curl = curl_init();
   
       if ($err) {
   
-          //echo "cURL Error #:" . $err;
+          echo "cURL Error #:" . $err;
   
       } else {
           $datutres = stripslashes($datut);
@@ -144,7 +161,7 @@ $curl = curl_init();
   
       if ($errpendidikan) {
   
-          //echo "cURL Error #:" . $errpendidikan;
+          echo "cURL Error #:" . $errpendidikan;
   
       } else {
           $datpendidikanres = stripslashes($datpendidikan);
@@ -155,234 +172,142 @@ $curl = curl_init();
   
       if ($errkursus) {
   
-          //echo "cURL Error #:" . $errkursus;
+          echo "cURL Error #:" . $errkursus;
   
       } else {
           $datkursusres = stripslashes($datkursus);
           $json_kursus = json_decode($datkursus,true);
           $json_kursus2 = $json_kursus['data'][0]['id'];
   
-          for($i = 0; $i < count($json_kursus['data']); $i++){
-              $isikursus .= 'Nama Kursus: ' . $json_kursus['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_kursus['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_kursus['data'][$i]['institusiPenyelenggara'] . '<br><br>';
-          }
+        //   for($i = 0; $i < count($json_kursus['data']); $i++){
+        //       $isikursus .= 'Nama Kursus: ' . $json_kursus['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_kursus['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_kursus['data'][$i]['institusiPenyelenggara'] . '<br><br>';
+        //   }
       }
     }
 
   // END API BKN
 
-// Begin configuration
-
-$textColour = array( 0, 0, 0 );
-$headerColour = array( 100, 100, 100 );
-$tableHeaderTopTextColour = array( 255, 255, 255 );
-$tableHeaderTopFillColour = array( 125, 152, 179 );
-$tableHeaderTopProductTextColour = array( 0, 0, 0 );
-$tableHeaderTopProductFillColour = array( 143, 173, 204 );
-$tableHeaderLeftTextColour = array( 99, 42, 57 );
-$tableHeaderLeftFillColour = array( 255, 255, 255 );
-$tableBorderColour = array( 50, 50, 50 );
-$tableRowFillColour = array( 213, 170, 170 );
-$reportName = "Data User";
-$reportNameYPos = 160;
-$logoFile = "widget-company-logo.png";
-$logoXPos = 50;
-$logoYPos = 108;
-$logoWidth = 110;
-$columnLabels = array( "Q1");
-$rowLabels = array( "Nama", "TTL", "NIK", "Alamat", "Nama Jenis Pegawai",
-                    "Nama Pendidikan Terakhir", "Nama Latihan Struktural",
-                    "Nama Instansi Induk", "Nama Satuan Kerja Induk", "Nama Instansi Kerja",
-                    "Nama Satuan Kerja", "Nama Unor", "Nama Unor Induk", "Jenis Jabatan",
-                    "Nama Jabatan", "Nama Jabatan Struktural", "Masa Kerja", "Jabatan ASN");
-$chartXPos = 20;
-$chartYPos = 250;
-$chartWidth = 160;
-$chartHeight = 80;
-$chartXLabel = "Product";
-$chartYLabel = "2009 Sales";
-$chartYStep = 20000;
-
-$chartColours = array(
-                  array( 255, 100, 100 ),
-                  array( 100, 255, 100 ),
-                  array( 100, 100, 255 ),
-                  array( 255, 255, 100 ),
-                );
-
-$data = array(
-          array( $json_obj2['nama']),
-          array( $json_obj2['tempatLahir']),
-          array( $json_obj2['nik']),
-          array( $json_obj2['alamat']),
-          array( $json_obj2['jenisPegawaiNama']),
-          array( $json_obj2['pendidikanTerakhirNama']),
-          array( $json_obj2['latihanStrukturalNama']),
-          array( $json_obj2['instansiIndukNama']),
-          array( $json_obj2['satuanKerjaIndukNama']),
-          array( $json_obj2['instansiKerjaNama']),
-          array( $json_obj2['satuanKerjaKerjaNama']),
-          array( $json_obj2['unorNama']),
-          array( $json_obj2['unorIndukNama']),
-          array( $json_obj2['jenisJabatan']),
-          array( $json_obj2['jabatanNama']),
-          array( $json_obj2['jabatanStrukturalNama']),
-          array( $json_obj2['masaKerja']),
-          array( $json_obj2['jabatanAsn']),
-        );
-
-// End configuration
-
-/**
-  Create the title page
-**/
-
-$pdf = new FPDF( 'P', 'mm', 'A4' );
-$pdf->SetTextColor( $textColour[0], $textColour[1], $textColour[2] );
-
-/**
-  Create the page header, main heading, and intro text
-**/
-
-$pdf->AddPage();
-$pdf->SetTextColor( $headerColour[0], $headerColour[1], $headerColour[2] );
-$pdf->SetFont( 'Arial', '', 17 );
-$pdf->Cell( 0, 18, $reportName, 0, 0, 'C' );
-$pdf->SetTextColor( $textColour[0], $textColour[1], $textColour[2] );
-$pdf->SetFont( 'Arial', '', 20 );
-
-$pdf->Ln( 22 );
-
-$pdf->SetTextColor( $headerColour[0], $headerColour[1], $headerColour[2] );
-$pdf->SetFont( 'Arial', '', 17 );
-$pdf->Cell( 0, 15, "Data Pribadi", 0, 0, 'C' );
-
-/***
-  Create the table
-**/
-
-$pdf->SetDrawColor( $tableBorderColour[0], $tableBorderColour[1], $tableBorderColour[2] );
-$pdf->Ln( 15 );
-
-// Create the table header row
-$pdf->SetFont( 'Arial', 'B', 15 );
-
-// "PRODUCT" cell
-// $pdf->SetTextColor( $tableHeaderTopProductTextColour[0], $tableHeaderTopProductTextColour[1], $tableHeaderTopProductTextColour[2] );
-// $pdf->SetFillColor( $tableHeaderTopProductFillColour[0], $tableHeaderTopProductFillColour[1], $tableHeaderTopProductFillColour[2] );
-// $pdf->Cell( 55, 12, " PRODUCT", 0, 0, 'L', true );
-
-// Remaining header cells
-// $pdf->SetTextColor( $tableHeaderTopTextColour[0], $tableHeaderTopTextColour[1], $tableHeaderTopTextColour[2] );
-// $pdf->SetFillColor( $tableHeaderTopFillColour[0], $tableHeaderTopFillColour[1], $tableHeaderTopFillColour[2] );
-
-// for ( $i=0; $i<count($columnLabels); $i++ ) {
-//   $pdf->Cell( 150, 12, $columnLabels[$i], 0, 0, 'C', true );
-// }
-
-// $pdf->Ln( 12 );
-
-// Create the table data rows
-
-$fill = false;
-$row = 0;
-
-foreach ( $data as $dataRow ) {
-
-  // Create the left header cell
-  $pdf->SetFont( 'Arial', 'B', 12 );
-  $pdf->SetTextColor( $tableHeaderLeftTextColour[0], $tableHeaderLeftTextColour[1], $tableHeaderLeftTextColour[2] );
-  $pdf->SetFillColor( $tableHeaderLeftFillColour[0], $tableHeaderLeftFillColour[1], $tableHeaderLeftFillColour[2] );
-  $pdf->Cell( 55, 12, " " . $rowLabels[$row], 0, 0, 'L', $fill );
-
-  // Create the data cells
-  // $pdf->SetTextColor( $textColour[0], $textColour[1], $textColour[2] );
-  // $pdf->SetFillColor( $tableRowFillColour[0], $tableRowFillColour[1], $tableRowFillColour[2] );
-  $pdf->SetFont( 'Arial', '', 12 );
-
-  for ( $i=0; $i<count($columnLabels); $i++ ) {
-    $pdf->Cell( 150, 12, ":    ".$dataRow[$i], 0, 0, 'L', $fill );
-  }
-
-  $row++;
-  $fill = !$fill;
-  $pdf->Ln( 12 );
-}
-
-
-/***
-  Create the chart
-***/
-
-// Compute the X scale
-// $xScale = count($rowLabels) / ( $chartWidth - 40 );
-
-// // Compute the Y scale
-
-// $maxTotal = 0;
-
-// foreach ( $data as $dataRow ) {
-//   $totalSales = 0;
-//   foreach ( $dataRow as $dataCell ) $totalSales += $dataCell;
-//   $maxTotal = ( $totalSales > $maxTotal ) ? $totalSales : $maxTotal;
-// }
-
-// $yScale = $maxTotal / $chartHeight;
-
-// // Compute the bar width
-// $barWidth = ( 1 / $xScale ) / 1.5;
-
-// // Add the axes:
-
-// $pdf->SetFont( 'Arial', '', 10 );
-
-// // X axis
-// $pdf->Line( $chartXPos + 30, $chartYPos, $chartXPos + $chartWidth, $chartYPos );
-
-// for ( $i=0; $i < count( $rowLabels ); $i++ ) {
-//   $pdf->SetXY( $chartXPos + 40 +  $i / $xScale, $chartYPos );
-//   $pdf->Cell( $barWidth, 10, $rowLabels[$i], 0, 0, 'C' );
-// }
-
-// // Y axis
-// $pdf->Line( $chartXPos + 30, $chartYPos, $chartXPos + 30, $chartYPos - $chartHeight - 8 );
-
-// for ( $i=0; $i <= $maxTotal; $i += $chartYStep ) {
-//   $pdf->SetXY( $chartXPos + 7, $chartYPos - 5 - $i / $yScale );
-//   $pdf->Cell( 20, 10, '$' . number_format( $i ), 0, 0, 'R' );
-//   $pdf->Line( $chartXPos + 28, $chartYPos - $i / $yScale, $chartXPos + 30, $chartYPos - $i / $yScale );
-// }
-
-// // Add the axis labels
-// $pdf->SetFont( 'Arial', 'B', 12 );
-// $pdf->SetXY( $chartWidth / 2 + 20, $chartYPos + 8 );
-// $pdf->Cell( 30, 10, $chartXLabel, 0, 0, 'C' );
-// $pdf->SetXY( $chartXPos + 7, $chartYPos - $chartHeight - 12 );
-// $pdf->Cell( 20, 10, $chartYLabel, 0, 0, 'R' );
-
-// // Create the bars
-// $xPos = $chartXPos + 40;
-// $bar = 0;
-
-// foreach ( $data as $dataRow ) {
-
-//   // Total up the sales figures for this product
-//   $totalSales = 0;
-//   foreach ( $dataRow as $dataCell ) $totalSales += $dataCell;
-
-//   // Create the bar
-//   $colourIndex = $bar % count( $chartColours );
-//   $pdf->SetFillColor( $chartColours[$colourIndex][0], $chartColours[$colourIndex][1], $chartColours[$colourIndex][2] );
-//   $pdf->Rect( $xPos, $chartYPos - ( $totalSales / $yScale ), $barWidth, $totalSales / $yScale, 'DF' );
-//   $xPos += ( 1 / $xScale );
-//   $bar++;
-// }
-
-$pdf->AddPage();
-
-/***
-  Serve the PDF
-***/
-
-$pdf->Output( "report.pdf", "I" );
-
 ?>
+	<div class="container">
+	
+		<div class="sidebar">
+			<div class="sidebar-top">
+      <?php
+      echo "<a>$icon</a>";
+      ?>
+				<!-- <img class="profile-image" src="http://demo.deviserweb.com/cv/assets/images/profile-img.jpg" /> -->
+				<div class="profile-basic">
+					<h2 class="name"><?php echo($json_obj2['gelarDepan']. " " . $json_obj2['nama']. " " . $json_obj2['gelarBelakang'])?></h2>
+				</div>
+			</div>
+
+			<div class="profile-info">
+				<p class="key">NIP : </p>
+				<p class="value"><?php echo($json_obj2['nipBaru']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key">Tempat Lahir: </p>
+				<p class="value"><?php echo($json_obj2['tempatLahir']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key">Tanggal Lahir : </p>
+				<p class="value"><?php echo($json_obj2['tglLahir']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key">Contact : </p>
+				<p class="value"><?php echo($json_obj2['noHp']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key" >Email : </p>
+				<p class="value" ><?php echo($json_obj2['email']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key" >Alamat : </p>
+				<p class="value" >
+					<?php echo($json_obj2['alamat']) ?>
+				</p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key" >Jenis Pegawai : </p>
+				<p class="value" ><?php echo($json_obj2['jenisPegawaiNama']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key" >Jenis Kelamin : </p>
+				<p class="value" ><?php echo($json_obj2['jenisKelamin']) ?></p>
+			</div>
+
+			<div class="profile-info">
+				<p class="key" >Instansi Induk : </p>
+				<p class="value" ><?php echo($json_obj2['instansiIndukNama']) ?></p>
+			</div>
+
+			<!-- <div class="profile-info">
+				<a class="social-media" href="https://facebook.com/" target="_blank" >Facebook</a>
+				<a class="social-media" href="https://linkedin.com/" target="_blank" >Linkedin</a>
+				<a class="social-media" href="https://twitter.com/" target="_blank" >Twitter</a>
+				<a class="social-media" href="https://instagram.com/" target="_blank" >Instagram</a>
+			</div> -->
+		</div>
+
+		<div class="content">
+			<div class="work-experience">
+				<h1 class="heading">Pendidikan</h1>
+				<?php
+					for($i = 3; $i < count($json_pendidikan['data']); $i++){
+						// $isikursus .= 'Nama Kursus: ' . $json_kursus['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_kursus['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_kursus['data'][$i]['institusiPenyelenggara'] . '<br><br>';
+				?>	
+				<div class="info">
+					<p class="sub-heading"><?php echo($json_pendidikan['data'][$i]['pendidikanNama'])?></p>
+					<p class="sub-heading"><?php echo($json_pendidikan['data'][$i]['namaSekolah'])?></p>
+					<p class="sub-heading"><?php echo($json_pendidikan['data'][$i]['tkPendidikanNama'])?></p>
+					<p class="duration"><?php echo($json_pendidikan['data'][$i]['tahunLulus'])?></p>
+					<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua.</p> -->
+				</div>
+				<?php		
+					}
+				?>
+
+				<!-- <div class="info">
+					<p class="sub-heading">Creative Director @DeviserWeb</p>
+					<p class="duration">JAN 2016 - DEC 2016</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua.</p>
+				</div>
+				<div class="info">
+					<p class="sub-heading">Graphics Designer @Creative Wrold</p>
+					<p class="duration">JAN 2016 - DEC 2016</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua.</p>
+				</div> -->
+			</div>
+			<div class="education">
+				<h1 class="heading">Kursus</h1>
+				<?php
+					for($i = 0; $i < count($json_kursus['data']); $i++){
+				?>	
+						<div class="info">
+						
+							<p class="sub-heading"><?php echo($json_kursus['data'][$i]['namaKursus'])?></p>
+							<p class="sub-heading"><?php echo($json_kursus['data'][$i]['institusiPenyelenggara'])?></p>
+							<p class="duration"><?php echo($json_kursus['data'][$i]['tanggalKursus'])?></p>
+							<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua.</p> -->
+						</div>
+				<?php		
+					}
+				?>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+

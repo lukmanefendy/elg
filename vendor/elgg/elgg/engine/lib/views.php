@@ -838,6 +838,10 @@ function elgg_view_menu_item(\ElggMenuItem $item, array $vars = array()) {
 	if ($item->getLinkClass()) {
 		$vars['class'] .= ' ' . $item->getLinkClass();
 	}
+	//ditambahkan:deklarasi untuk verify account oleh focal point
+	else if($item->getText() == "Verify Account")
+		$item->setConfirmText("Dengan ini saya menyatakan telah meneliti dengan cermat data persyaratan untuk menjadi expert dari calon yang bersangkutan. Saya menyatakan bertanggung jawab secara penuh atas kelayakan calon tersebut menjadi expert. Segala bentuk kerugian negara dan pertanggungjawaban secara hukum yang terjadi sebagai akibat dari tindakan saya, baik sengaja maupun tidak disengaja akan menjadi tanggung jawab saya sesuai ketentuan peraturan perundang-undangan yang berlaku.");
+		//$vars['class'] .= ' ' ."elgg-lightbox";
 
 	if ($item->getHref() === false || $item->getHref() === null) {
 		$text = $item->getText();

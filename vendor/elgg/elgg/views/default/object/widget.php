@@ -21,7 +21,7 @@ $widget_class[] = $widget->canEdit() ? 'elgg-state-draggable' : 'elgg-state-fixe
 
 //ditambahkan:filter widget control panel utk focal
 $user = elgg_get_logged_in_user_entity();
-if ($user->focal == 'no' && $user->admin == 'yes')
+if ($user->focal == 'no')
 echo elgg_view_module('widget', '', elgg_view('object/widget/body', $vars), [
 	'class' => $widget_class,
 	'id' => "elgg-widget-$widget->guid",

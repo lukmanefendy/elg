@@ -442,7 +442,7 @@ class UsersTable {
 	 * @throws RegistrationException
 	 */
 	//ditambahkan:nip dan hp dan instansi
-	public function register($nip, $hp, $instansi, $username, $password, $name, $email, $allow_multiple_emails = false) {
+	public function register($nip, $hp, $instansi,  $country, $username, $password, $name, $email, $allow_multiple_emails = false) {
 
 		// no need to trim password
 		$nip = trim($nip);
@@ -487,6 +487,7 @@ class UsersTable {
 		$user->nip = $nip;
 		$user->hp = $hp;
 		$user->instansi = $instansi;
+		$user->country = $country;
 		$user->username = $username;
 		$user->email = $email;
 		$user->name = $name;

@@ -147,15 +147,47 @@ $flag = <<<__FLAG
 	<br /><br>
 	<b> Choose Your Nation:</font></b><br /><br />
 	<b>Brunei Darussalam</b><br>
-	<a href="register" class="borderit2"><img src="images/BenderaBrunei.png" vspace="5"></a><br>
+	<a href="webserv?country=BRN" class="borderit2"><img src="images/BenderaBrunei.png" vspace="5"></a><br>
 	<br><br>
 	<b>Cambodia</b><br>
-	<img src="images/BenderaKamboja.png" vspace="5"><br>
+	<a href="webserv?country=KHM" class="borderit2"><img src="images/BenderaKamboja.png" vspace="5"></a><br>
 	<br><br>
 	<b>Indonesia</b><br>
 	<img class ="indoflag" src="images/BenderaIndonesia.png" vspace="5">
 	<br />
 	<div class="hideshow hidden">
+__FLAG;
+
+echo($flag);
+
+$token = captcha_generate_token();
+echo '<div class="captcha">';
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'captcha_token',
+	'value' => $token,
+]);
+echo '<div class="captcha-right">';
+echo elgg_view('output/img', [
+	'src' => "captcha/$token",
+	'alt' => "captcha_image",
+	'class' => 'captcha-input-image',
+]);
+echo '</div>';
+echo '<div class="captcha-left">';
+echo elgg_view_field([
+	'#type' => 'text',
+	'#label' => elgg_echo('captcha:entercaptcha'),
+	'name' => 'captcha_input',
+	'class' => 'captcha-input-text',
+	'required' => true,
+]);
+$captcha = captcha_generate_captcha($token);
+print("<input value=\"$captcha\" type=\"hidden\" name=\"captcha_hidden\" class=\"elgg-input-text captcha-input-text\" id=\"elgg-field-b460x4\">");
+echo '</div>';
+echo '</div>';
+
+$flag2 = <<<__FLAG
 	<input class="rdo1 hidden" name="rdo1" type="radio" value="radio1"><span class="spanval hidden">Aparatur Sipil Negara</span><br />
 	<div class="elgg-field elgg-field-required hidden">
 		<label for="elgg-field-wn6lf0" class="elgg-field-label">Silahkan Isi NIP Anda<span title="Required" class="elgg-required-indicator">*</label>
@@ -168,30 +200,30 @@ $flag = <<<__FLAG
 	<br>
 	</div>
 	<b>Lao PDR</b><br>
-	<img src="images/BenderaLaos.png" vspace="5"><br>
+	<a href="webserv?country=LAO" class="borderit2"><img src="images/BenderaLaos.png" vspace="5"></a><br>
 	<br><br>
 	<b>Malaysia</b><br>
-	<img src="images/BenderaMalaysia.png" vspace="5"><br>
+	<a href="webserv?country=MYS" class="borderit2"><img src="images/BenderaMalaysia.png" vspace="5"></a><br>
 	<br><br>
 	<b>Myanmar</b><br>
-	<img src="images/BenderaMyanmar.png" vspace="5"><br>
+	<a href="webserv?country=MMR" class="borderit2"><img src="images/BenderaMyanmar.png" vspace="5"></a><br>
 	<br><br>
 	<b>Philippines</b><br>
-	<img src="images/BenderaFiliphina.png" vspace="5"><br>
+	<a href="webserv?country=PHL" class="borderit2"><img src="images/BenderaFiliphina.png" vspace="5"></a><br>
 	<br><br>
 	<b>Singapore</b><br>
-	<img src="images/BenderaSingapur.png" vspace="5"><br>
+	<a href="webserv?country=SGP" class="borderit2"><img src="images/BenderaSingapur.png" vspace="5"></a><br>
 	<br><br>
 	<b>Thailand</b><br>
-	<img src="images/BenderaThailand.png" vspace="5"><br>
+	<a href="webserv?country=THA" class="borderit2"><img src="images/BenderaThailand.png" vspace="5"></a><br>
 	<br><br>
 	<b>Vietnam</b><br>
-	<img src="images/BenderaVietnam.png" vspace="5"><br>
+	<a href="webserv?country=VNM" class="borderit2"><img src="images/BenderaVietnam.png" vspace="5"></a><br>
 	<br><br>
 </div>
 
 
 __FLAG;
-echo($flag);
+echo($flag2);
 
 //elgg_set_form_footer($footer);

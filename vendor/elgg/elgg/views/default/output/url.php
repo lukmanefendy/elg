@@ -84,9 +84,12 @@ if (!isset($vars['title']) && isset($vars['data-confirm'])) {
 
 //ditambahkan:sql utk cek user sdh verified
 if (isset($vars['guid'])){
-	$isvrf = get_data("SELECT vrf from elgg_users_entity where guid=".$vars['guid']);
+	$isvrf = get_data("SELECT vrf, focal from elgg_users_entity where guid=".$vars['guid']);
 	if ($isvrf[0]->vrf == 'yes')
 		$vrf=elgg_get_simplecache_url('check.png');
+//ditambahkan:focal cek utk italic
+	if ($isvrf[0]->focal == 'yes')
+		$text = "<i>$text</i>";
 }
 
 

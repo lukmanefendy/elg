@@ -53,7 +53,7 @@ $aexp = <<<__AEXP
 		<img src="images/kontak.png">
 	</td>
 	<td width="40%" align="left">
-		<a href="index.php" class="borderit2"><img src="images/LogoACCSM3.png"></a>
+		<a href="http://accsm-indonesia.bkn.go.id/" class="borderit2"><img src="images/LogoACCSM3.png"></a>
 	</td>
 </tr>
 </table>

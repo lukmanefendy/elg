@@ -28,6 +28,11 @@
 	max-width: 990px;
 	margin: 0 auto;
 }
+/* ditambahkan:leftside */
+.elgg-page-default .elgg-page-body > .leftside {
+	max-width: 220px;
+	margin: 0 auto;
+}
 .elgg-page-default .elgg-page-footer > .elgg-inner {
 	max-width: 990px;
 	margin: 0 auto;

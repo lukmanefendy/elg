@@ -478,7 +478,7 @@ class AccessCollections {
 			$access_array = array(
 				ACCESS_PRIVATE => $this->getReadableAccessLevel(ACCESS_PRIVATE),
 				ACCESS_FRIENDS => $this->getReadableAccessLevel(ACCESS_FRIENDS),
-				ACCESS_LOGGED_IN => $this->getReadableAccessLevel(ACCESS_LOGGED_IN),
+//				ACCESS_LOGGED_IN => $this->getReadableAccessLevel(ACCESS_LOGGED_IN),
 				ACCESS_PUBLIC => $this->getReadableAccessLevel(ACCESS_PUBLIC)
 			);
 
@@ -893,7 +893,7 @@ class AccessCollections {
 		$access_array = array(
 			ACCESS_PRIVATE => $translator->translate("PRIVATE"),
 			ACCESS_FRIENDS => $translator->translate("access:friends:label"),
-			ACCESS_LOGGED_IN => $translator->translate("LOGGED_IN"),
+//			ACCESS_LOGGED_IN => $translator->translate("LOGGED_IN"),
 			ACCESS_PUBLIC => $translator->translate("PUBLIC"),
 		);
 

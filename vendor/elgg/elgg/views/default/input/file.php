@@ -20,7 +20,7 @@ $defaults = array(
 	'disabled' => false,
 	'type' => 'file'
 );
-//menambahkan 2 button upload file
+//ditambahkan:button upload file
 $vars = array_merge($defaults, $vars);
 $name = $vars['name'];
 $vars['name'] .= '-published';

@@ -19,6 +19,7 @@ $hp = get_input('hp');
 $instansi = get_input('instansi');
 $friend_guid = (int) get_input('friend_guid', 0);
 $invitecode = get_input('invitecode');
+$country = 'IND';
 
 if (elgg_get_config('allow_registration')) {
 	try {
@@ -26,7 +27,7 @@ if (elgg_get_config('allow_registration')) {
 			throw new RegistrationException(elgg_echo('RegistrationException:EmptyPassword'));
 		}
 		//ditambahkan:nip dan hp dan instansi
-		$guid = register_user($nip, $hp, $instansi, $username, $password, $name, $email);
+		$guid = register_user($nip, $hp, $instansi,  $country, $username, $password, $name, $email);
 
 		if ($guid) {
 			$new_user = get_entity($guid);

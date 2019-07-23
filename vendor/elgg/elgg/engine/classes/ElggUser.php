@@ -46,10 +46,11 @@ class ElggUser extends \ElggEntity
 	 */
 	final public static function getExternalAttributes() {
 		return [
-		//ditambahkan:nip dan hp dan instansi focal
+		//ditambahkan:nip dan hp dan instansi focal vrf
 			'nip' => null,
 			'hp' => null,
 			'instansi' => null,
+			'vrf' => null,
 			'name' => null,
 			'username' => null,
 			'password' => null,
@@ -140,6 +141,8 @@ class ElggUser extends \ElggEntity
 		//ditambahkan:nip dan hp
 		$nip = sanitize_string($this->nip);
 		$hp = sanitize_string($this->hp);
+		$country = sanitize_string($this->country);
+		$instansi = sanitize_string($this->instansi);
 		$guid = parent::create();
 		$name = sanitize_string($this->name);
 		$username = sanitize_string($this->username);
@@ -150,8 +153,8 @@ class ElggUser extends \ElggEntity
 		$language = sanitize_string($this->language);
 		//ditambahkan:nip dan hp dan instansi
 		$query = "INSERT into {$CONFIG->dbprefix}users_entity
-			(nip, hp, instansi, guid, name, username, password, salt, password_hash, email, language)
-			values ($nip, $hp, $instansi, $guid, '$name', '$username', '$password', '$salt', '$password_hash', '$email', '$language')";
+			(nip, hp, instansi, country, guid, name, username, password, salt, password_hash, email, language)
+			values ($nip, $hp, '$instansi',  '$country', $guid, '$name', '$username', '$password', '$salt', '$password_hash', '$email', '$language')";
 
 		$result = $this->getDatabase()->insertData($query);
 		if ($result === false) {

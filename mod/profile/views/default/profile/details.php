@@ -9,15 +9,25 @@ $user = elgg_get_page_owner_entity();
 $profile_fields = elgg_get_config('profile_fields');
 
 //ditambahkan:sql utk cek user apakah sudah verified
-$isvrf = get_data("SELECT vrf from elgg_users_entity where guid=$user->guid");
-if ($isvrf[0]->vrf == 'yes')
-	$vrf=elgg_get_simplecache_url('check.png');
+$isvrf = get_data("SELECT vrf, focal from elgg_users_entity where guid=$user->guid");
 
 echo '<div id="profile-details" class="elgg-body pll">';
 echo "<span class=\"hidden nickname p-nickname\">{$user->username}</span>";
 //ditambahkan:img verified utk hal profile
-echo "<h2 class=\"p-name fn\">{$user->name}<img src=".$vrf." class='img2' width='20' height='20'></h2>";
-
+//ditambahkan:italic utk focal point dlm hal profile
+if ($isvrf[0]->vrf == 'yes'){
+	$vrf=elgg_get_simplecache_url('check.png');
+	if ($isvrf[0]->focal == 'yes')
+		echo "<h2 class=\"p-name fn\"><i>{$user->name}</i><img src=".$vrf." class='img2' width='20' height='20'></h2>";
+	else
+		echo "<h2 class=\"p-name fn\">{$user->name}<img src=".$vrf." class='img2' width='20' height='20'></h2>";
+}
+else{
+	if ($isvrf[0]->focal == 'yes')	
+		echo "<h2 class=\"p-name fn\"><i>{$user->name}</i></h2>";
+	else
+		echo "<h2 class=\"p-name fn\">{$user->name}</h2>";
+}
 
 
 

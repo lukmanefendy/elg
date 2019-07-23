@@ -30,6 +30,7 @@ if (elgg_is_logged_in()) {
 	$content = elgg_view('page/elements/body', $vars);
 }  
 
+$lang = get_input('lang');
 //ditambahkan utk membuat halaman depan aexpecs, $header jadi $front
 
 $aexp = <<<__AEXP
@@ -52,8 +53,14 @@ $aexp = <<<__AEXP
 	<td width="25%">
 		<img src="images/kontak.png">
 	</td>
-	<td width="40%" align="left">
-		<a href="index.php" class="borderit2"><img src="images/LogoACCSM3.png"></a>
+	
+	<td width="35%" align="left">
+		<a href="http://accsm-indonesia.bkn.go.id/" class="borderit2"><img src="images/LogoACCSM3.png"></a>
+	</td>
+	<td width="5%" align="right" class="leftborder">
+	</br>
+	English:</br>
+		<a href="?lang=en" class="borderit"><img src="images/BenderaInggris.png" width="50px"></a>
 	</td>
 </tr>
 </table>
@@ -73,29 +80,29 @@ $aexp = <<<__AEXP
 		</tr>
 		<tr>
 			<td width="85%" height="40">
-				<a href="profile" class="a">Profile</a>
+				<a href="index?lang=id" class="a">Profile</a>
 			</td>
 		</tr>
 		<tr>
 			<td width="85%" height="40">
-				<a href="rekomen" class="a">Rekomendasi</a>
+				<a href="rekomen?lang=id" class="a">Rekomendasi</a>
 			</td>
 		</tr>
 		<tr>
 			<td width="85%" height="40">
-				<a href="kriteria" class="a">Kriteria Pakar</a>
+				<a href="kriteria?lang=id" class="a">Kriteria Pakar</a>
 			</td>
 		</tr>
 		<tr>
 			<td width="85%" height="40">
-				<a href="area" class="a">Area 
+				<a href="area?lang=id" class="a">Area 
 					Kepakaran
 				</a>
 			</td>
 		</tr>
 		<tr>
 			<td width="85%" height="40">
-				<a href="cara" class="a">Cara Mendaftar</a>
+				<a href="cara?lang=id" class="a">Cara Mendaftar</a>
 			</td>
 		</tr>
 	</table>
@@ -111,6 +118,89 @@ $aexp = <<<__AEXP
 
 __AEXP;
 
+if ($lang == "en"){
+	$aexp = <<<__AEXPE
+	<script>
+		var imageSources = ["images/111.png", "images/ExpertRev.png"]
+		var index = 0;
+		setInterval (function(){
+		  if (index === imageSources.length) {
+			index = 0;
+		  }
+		  document.getElementById("image").src = imageSources[index];
+		  index++;
+		} , 5000);
+	</script>
+	<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="35%" align="center">
+			<img src="images/ARCKAL.png">
+		</td>
+		<td width="25%">
+			<img src="images/kontak.png">
+		</td>
+		<td width="35%" align="left">
+			<a href="http://accsm-indonesia.bkn.go.id/" class="borderit2"><img src="images/LogoACCSM3.png"></a>
+		</td>
+		<td width="5%" align="right" class="leftborder">
+		</br>
+		Indonesia:</br>
+			<a href="?lang=id" class="borderit"><img src="images/BenderaIndonesia.png" width="50px"></a>
+		</td>
+	</tr>
+	</table>
+	<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="100%" height="310">
+			<img id="image" src="images/1Rev.png" width="100%" height="311">
+		</td>
+	</tr>
+	</table>
+	<div class="col-md-2">
+		<br />
+		<table border="0" width="100%" height="170" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="15%" height="50" rowspan="40"></td>
+				<td width="85%" height="50" class="teks4" valign="top">Main Menu</td>
+			</tr>
+			<tr>
+				<td width="85%" height="40">
+					<a href=index"?lang=en" class="a">Profile</a>
+				</td>
+			</tr>
+			<tr>
+				<td width="85%" height="40">
+					<a href="rekomen?lang=en" class="a">Recommendation</a>
+				</td>
+			</tr>
+			<tr>
+				<td width="85%" height="40">
+					<a href="kriteria?lang=en" class="a">Criteria of Expertise</a>
+				</td>
+			</tr>
+			<tr>
+				<td width="85%" height="40">
+					<a href="area?lang=en" class="a">Area of Expertise 
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td width="85%" height="40">
+					<a href="cara?lang=en" class="a">Registration Method</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-md-6">
+	<br><br>
+    <font class="teks2">Area of Expertise</font><br><br>
+    
+		<img src="images/areaexpertise.png" style="width:600px;height:500px;" /><br /><br />
+    <!-- <img src="images/areaexpertise.png" vspace="1"><br> -->
+</div>
+__AEXPE;
+		
+}
 
  
 //$content .= $aexp;

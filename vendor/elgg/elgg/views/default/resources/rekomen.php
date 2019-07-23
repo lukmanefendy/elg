@@ -30,5 +30,7 @@ $params = array(
 		'sidebar' => $login_box
 );
 $body = elgg_view_layout('one_sidebar', $params);
+//ditambahkan:margin-right agar form login tidak terpotong
+$body = '<div class="test" style="margin-right: 100px;">' . $body . '</div>';
 
 echo elgg_view_page(null, $body);

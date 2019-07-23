@@ -78,8 +78,8 @@ function profile_page_handler($page) {
 		return true;
 	}
 	//ditambahkan:verify button di profile page handler
-	else if ($action == 'verify') {
-		echo elgg_view_resource('profile/verify');
+	else if ($action == 'verif') {
+		echo elgg_view_resource('profile/verif');
 		return true;
 	}
 	echo elgg_view_resource('profile/view', [

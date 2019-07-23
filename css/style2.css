@@ -1,0 +1,157 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: Calibri;
+  font-size: 17px;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.text1	{
+	font-family: Estrangello Edessa;
+	color:#FF6600;
+	font-size: 26px;
+	text-decoration: none;
+	font-weight:bold;
+}
+
+.text2	{
+	font-family: Arial;
+	color:#333333;
+	font-size: 20px;
+	text-decoration: none;
+	font-weight:bold;
+}
+
+.text3	{
+	font-family: Arial;
+	color:#333333;
+	font-size: 15px;
+	text-decoration: none;
+	font-weight: normal;
+}
+
+.text4	{
+	font-family: Corbel;
+	color:#333366;
+	font-size: 18px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.text5	{
+	font-family: Calibri;
+	color:#333333;
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.text6	{
+	font-family: Calibri;
+	color:#ffffff;
+	font-size: 14px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.container{padding: 5px};
+
+.blinking{
+    animation:blinkingText 0.8s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #000;    }
+    49%{    color: transparent; }
+    50%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #333366;    }
+}
+
+a.b:link	{
+	font-family:  Verdana;
+	color:#0033FF;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+a.b:visited	{
+	font-family: Verdana;
+	color:#0033FF;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+a.b:hover	{
+	font-family: Verdana;
+	color: #669900;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a.c:link	{
+	font-family:  Verdana;
+	color:#CCFF99;
+	font-size: 13px;
+	font-weight: normal;
+	text-decoration: none;
+}
+a.c:visited	{
+	font-family: Verdana;
+	color:#CCFF99;
+	font-size: 14px;
+	font-weight: normal;
+	text-decoration: none;
+}
+a.c:hover	{
+	font-family: Verdana;
+	color: #CCFF99;
+	font-size: 13px;
+	font-weight: normal;
+	text-decoration: underline;
+}

@@ -47,6 +47,7 @@ unset($vars['label_class']);
 
 $input = elgg_format_element('input', $vars);
 
+//ditambahkan: labclass
 if (strlen($labclass)>=10){
 $cb = <<<__CB
 &nbsp;&nbsp;&nbsp;&nbsp;

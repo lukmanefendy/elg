@@ -20,7 +20,8 @@ if ($container_guid == 0) {
 elgg_make_sticky_form('file');
 
 // check if upload attempted and failed
-$uploaded_files = elgg_get_uploaded_files('upload');
+//ditambahkan:-published tidak tahu penyebabnya 
+$uploaded_files = elgg_get_uploaded_files('upload-published');
 $uploaded_file = array_shift($uploaded_files);
 if ($uploaded_file && !$uploaded_file->isValid()) {
 	$error = elgg_get_friendly_upload_error($uploaded_file->getError());

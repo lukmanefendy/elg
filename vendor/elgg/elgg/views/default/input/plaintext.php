@@ -20,6 +20,7 @@ $defaults = array(
 	'disabled' => false,
 );
 
+//ditambahkan:deklarasi
 if ($vars['name'] == declaration){
 	$vars['value'] = "Dengan ini saya menyatakan telah dan sanggup memenuhi persyaratan sebagai expert:
 a. Has experiences on civil service matters or has worked/ been working as civil service consultant in 

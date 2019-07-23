@@ -314,9 +314,9 @@ function validate_email_address($address) {
  * @throws RegistrationException
  */
 //ditambahkan:nip dan hp dan instansi
-function register_user($nip, $hp, $instansi, $username, $password, $name, $email, $allow_multiple_emails = false) {
+function register_user($nip, $hp, $instansi, $country, $username, $password, $name, $email, $allow_multiple_emails = false) {
 	//ditambahkan:nip dan hp dan instansi
-	return _elgg_services()->usersTable->register($nip, $hp, $instansi, $username, $password, $name, $email, $allow_multiple_emails);
+	return _elgg_services()->usersTable->register($nip, $hp, $instansi,  $country, $username, $password, $name, $email, $allow_multiple_emails);
 }
 
 /**
@@ -548,7 +548,8 @@ function elgg_user_hover_menu($hook, $type, $return, $params) {
 		$return[] = $item;
 
 		//ditambahkan:button pdf preview profile user
-		$url = "profile/$user->username/preview";
+		$url = "profile/$user->username/preview?preview=$user->nip&page=$user->guid";
+		//$url = "profile/$user->username/preview";
 		$item = new \ElggMenuItem('profile:preview', elgg_echo('profile:preview'), $url);
 		$item->setSection('action');
 		$return[] = $item;
@@ -604,17 +605,31 @@ function elgg_user_hover_menu($hook, $type, $return, $params) {
 		$item->setSection('action');
 		$return[] = $item;
 		
-		//ditambahkan:button pdf preview profile user
-		$url = "profile/$user->username/preview";
+		//ditambahkan:button pdf preview profile user dg user nip dan guid
+		$url = "profile/$user->username/preview?preview=$user->nip&page=$user->guid";
 		$item = new \ElggMenuItem('profile:preview', elgg_echo('profile:preview'), $url);
 		$item->setSection('action');
 		$return[] = $item;
 
-		
+		//ditambahkan:button verifikasi user
 		$url = "profile/$user->username/verif";
 		$item = new \ElggMenuItem('profile:verif', elgg_echo('profile:verif'), $url);
 		$item->setSection('action');
 		$return[] = $item;
+
+		//$url = "action/expert/verif?vrf={$user->guid}";
+		//$item = new \ElggMenuItem('verif_expert', elgg_echo('verif:expert'), $url);
+		//$item->setSection('action');
+		//$return[] = $item;
+		$return[] = \ElggMenuItem::factory(array(
+			'name' => 'verif_expert',
+			'href' => elgg_add_action_tokens_to_url("action/expert/verif?vrf={$user->guid}"),
+			'text' => elgg_echo('verif:expert'),
+			'section' => 'action',
+			'confirm' => "Dengan ini saya menyatakan telah meneliti dengan cermat data persyaratan untuk menjadi expert dari calon yang bersangkutan. Saya menyatakan bertanggung jawab secara penuh atas kelayakan calon tersebut menjadi expert. Segala bentuk kerugian negara dan pertanggungjawaban secara hukum yang terjadi sebagai akibat dari tindakan saya, baik sengaja maupun tidak disengaja akan menjadi tanggung jawab saya sesuai ketentuan peraturan perundang-undangan yang berlaku.",
+		
+			//'item_class' => $isFriend ? 'hidden' : '',
+		));
 	}
 
 	return $return;
@@ -941,6 +956,7 @@ function users_init() {
 	elgg_register_action('avatar/crop');
 	elgg_register_action('avatar/remove');
 	elgg_register_action('profile/edit');
+	elgg_register_action('expert/verif');
 
 	elgg_register_plugin_hook_handler('entity:icon:url', 'user', 'user_avatar_hook');
 

@@ -25,22 +25,27 @@ $lis = '';
 $user = elgg_get_logged_in_user_entity();
 if (is_array($items)) {
 	foreach ($items as $menu_item) {
-		//ditambahkan:filter focal untuk item menu
-		if ($section == 'administer'){
-			$Ivars = array();
-			$Ivars = array_merge($menu_item->getValues(), $Ivars);
+		//ditambahkan:filter kata2 Elgg agar tdk tampil
+		if ($menu_item->getText() != 'Elgg Blog' && $menu_item->getText() != 'Elgg Community Forums'){
+			if ($menu_item->getText() == 'Logged in as Elgg Admin'){
+				$menu_item->setText('Logged in as Aexpecs Admin');
+			}
+			if ($section == 'administer'){
+				$Ivars = array();
+				$Ivars = array_merge($menu_item->getValues(), $Ivars);
+			}
+			if ($user->focal == 'no' || empty($user))
+			//ditambahkan:filter focal untuk item menu
+				$lis .= elgg_view('navigation/menu/elements/item', array(
+					'item' => $menu_item,
+					'item_class' => $item_class,
+				));
+			else if ($user->focal == 'yes' && $Ivars['text'] != 'Utilities')
+				$lis .= elgg_view('navigation/menu/elements/item', array(
+				'item' => $menu_item,
+				'item_class' => $item_class,
+				));
 		}
-		if ($user->focal == 'no' || empty($user) )
-		//if ($user->focal == 'no' && $user->admin == 'yes')
-		$lis .= elgg_view('navigation/menu/elements/item', array(
-			'item' => $menu_item,
-			'item_class' => $item_class,
-		));
-		else if ($user->focal == 'yes' && $Ivars['text'] != 'Utilities')
-		$lis .= elgg_view('navigation/menu/elements/item', array(
-			'item' => $menu_item,
-			'item_class' => $item_class,
-		));
 	}
 }
 

@@ -16,8 +16,8 @@ if ($error) {
 	register_error($error);
 	forward(REFERER);
 }
-
-if (!$owner->saveIconFromUploadedFile('avatar')) {
+//ditambahkan:-published utk bisa upload
+if (!$owner->saveIconFromUploadedFile('avatar-published')) {
 	register_error(elgg_echo('avatar:resize:fail'));
 	forward(REFERER);
 }

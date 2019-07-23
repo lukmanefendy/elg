@@ -24,11 +24,17 @@ $gdpn = get_input('gelarDepan');
 $gblkg = get_input('gelarBelakang');
 $email = get_input('email');
 $password = $password2 = '';
+$country = get_input('country');
+if(!isset($country))
+	$country = "IDN";
 //$username = elgg_extract('username', $values, get_input('nama'));
 //$email = elgg_extract('email', $values, get_input('e'));
 $name = elgg_extract('name', $values, get_input('nama'));
-if (isset($gdpn)){
+if ($gdpn != ""){
 	$name = $gdpn.". ".$name;
+}
+if ($gblkg != ""){
+	$name .= ", ".$gblkg.".";
 }
 
 /* $fields = [
@@ -92,13 +98,13 @@ if (isset($gdpn)){
 		'#label' => elgg_echo('Display Name'),
 		'#class' => 'mtm',
 		'name' => 'dispname',
-		'value' => $name.", ".$gblkg.".",
+		'value' => $name,
 		'autofocus' => true,
 		'required' => true,
 	],
 	[
 		'#type' => 'text',
-		'#label' => elgg_echo('N I P'),
+		'#label' => $country=="IDN"?elgg_echo('N I P'):elgg_echo('ID Number'),
 		'#class' => 'mtm',
 		'name' => 'nip',
 		'value' => $nip,
@@ -146,6 +152,11 @@ if (isset($gdpn)){
 		'name' => 'instansi',
 		'value' => $instansi,
 		'required' => true
+	],
+	[
+		'#type' => 'hidden',
+		'name' => 'country',
+		'value' => $country,
 	]
 ]; 
 

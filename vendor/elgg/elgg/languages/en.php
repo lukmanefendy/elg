@@ -172,7 +172,7 @@ return array(
 	'username' => "Username",
 	'loginusername' => "Username or email",
 	'password' => "Password",
-	'passwordagain' => "Password (again for verification)",
+	'passwordagain' => "Retype Password",
 	'admin_option' => "Make this user an admin?",
 	'focal_option' => "Make this user a focal?",
 	'autogen_password_option' => "Automatically generate a secure password?",
@@ -245,6 +245,7 @@ return array(
 	'friends:yours' => "Your friends",
 	'friends:owned' => "%s's friends",
 	'friend:add' => "Add friend",
+	'verif:expert' => "Verify Expert",
 	'friend:remove' => "Remove friend",
 
 	'friends:add:successful' => "You have successfully added %s as a friend.",
@@ -331,7 +332,7 @@ return array(
 	'profile:field:email' => 'Email address',
 	'profile:field:location' => 'Location',
 	'profile:field:date' => 'Date',
-
+	'profile:nik' => 'NIK',
 	'admin:appearance:profile_fields' => 'Edit Profile Fields',
 	'profile:edit:default' => 'Edit profile fields',
 	'profile:label' => "Profile label",
@@ -382,7 +383,7 @@ return array(
 	'river:subject:invalid_subject' => 'Invalid user',
 	'activity:owner' => 'View activity',
 
-	'river:widget:title' => "Activity",
+	'river:widget:title' => "Activities",
 	'river:widget:description' => "Display latest activity",
 	'river:widget:type' => "Type of activity",
 	'river:widgets:friends' => 'Friends activity',
