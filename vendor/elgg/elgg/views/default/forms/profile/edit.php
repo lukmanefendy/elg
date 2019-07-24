@@ -230,7 +230,6 @@ if ($err) {
 	} else {
 		$datjabatanres = stripslashes($datjabatan);
 		$json_jabatan = json_decode($datjabatan,true);
-		// $json_jabatan2 = $json_jabatan['data'][0];
 		for($i = 0; $i < count($json_jabatan['data']); $i++){
 			$isijabatan .= 'Jenis Jabatan: ' . $json_jabatan['data'][$i]['jenisJabatan'] . ' Instansi Kerja: ' . $json_jabatan['data'][$i]['instansiKerjaNama'] . ' Satuan Kerja: ' . $json_jabatan['data'][$i]['satuanKerjaNama'] .  ' Unor: ' . $json_jabatan['data'][$i]['unorNama'] . '<br><br>';
 		}
@@ -241,9 +240,8 @@ if ($err) {
 	} else {
 		$datdiklatres = stripslashes($datdiklat);
 		$json_diklat = json_decode($datdiklat,true);
-		// $json_jabatan2 = $json_jabatan['data'][0];
-		// for($i = 0; $i < count($json_jabatan['data']); $i++){
-		// 	$isijabatan .= 'Nama Kursus: ' . $json_kursus['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_kursus['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_kursus['data'][$i]['institusiPenyelenggara'] . '<br><br>';
+		// for($i = 0; $i < count($json_diklat['data']); $i++){
+		// 	$isidiklat .= 'Nama Kursus: ' . $json_diklat['data'][$i]['namaKursus'] . ' Tanggal Kursus: ' . $json_diklat['data'][$i]['tanggalKursus'] . ' Institusi Penyelenggara: ' . $json_diklat['data'][$i]['institusiPenyelenggara'] . '<br><br>';
 		// }
 	}
 }
